@@ -1,0 +1,28 @@
+@import url("./variables.css");
+
+:root{
+    font-size: var(--Font-Size-Root);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    outline: 0;
+    text-decoration: 0;
+    line-height: 0;
+    color: var(--Dark-Gray);
+    scroll-behavior: smooth;
+    transition: var(--Transition);
+}
+
+    html{
+        width: var(--Width-Relative-Max);
+        height: var(--Height-Absolute-Max);
+    }
+
+        body{
+            width: var(--Width-Relative-Max);
+            height: var(--Height-Relative-Max);
+        }
