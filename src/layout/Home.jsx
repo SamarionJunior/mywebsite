@@ -1,21 +1,26 @@
-import { Link } from "react-router-dom";
-import Style from './home.module.css';
+import { useState } from 'react';
+import Style from '../css/layout/home.module.css';
 
-import {toLink} from "./main"
+import {toLink} from "../js/main.js"
 
-import {projects} from "../../contents/projects.js"
+import {getProjects} from "../js/projects.js"
 
 const Home = _ => {
 
+    const [projects, setProjects] = useState(getProjects);
+
     return (
         <div className={Style.App}>
+
             <div className={Style.Links} id={Style.Navegation}>
-                <button className={Style.Link} id={Style.LinkHome} onClick={(e) => toLink(e, Style.Home)}>
-                    <i className="fa-solid fa-house"></i>
-                </button>
-                <button className={Style.Link} id={Style.LinkProject} onClick={(e) => toLink(e, Style.Project)}>
-                    <i className="fa-solid fa-folder-open"></i>
-                </button>
+                <div className={Style.NavegationButtons}>
+                    <button className={Style.Link} id={Style.LinkHome} onClick={(e) => toLink(e, Style.Home)}>
+                        <i className="fa-solid fa-house"></i>
+                    </button>
+                    <button className={Style.Link} id={Style.LinkProject} onClick={(e) => toLink(e, Style.Project)}>
+                        <i className="fa-solid fa-folder-open"></i>
+                    </button>
+                </div>
             </div>
 
             <div className={Style.View} id={Style.Home}>
@@ -24,7 +29,7 @@ const Home = _ => {
                     <h3>Desenvolvedor Web</h3>
                     <div className={Style.buttons}>
                         <button onClick={(e) => toLink(e, Style.Project)}>Projetos</button>
-                        <button onClick={(e) => toLink(e, Style.Contact)}>Contato</button>
+                        {/* <button onClick={(e) => toLink(e, Style.Contact)}>Contato</button> */}
                     </div>
                 </div>
             </div>
@@ -33,7 +38,7 @@ const Home = _ => {
 
                 {projects.map((project, index) => (
 
-                    <div className={project.actived ? Style.Painel : `${Style.Painel} ${Style.PainelDisabled}`} key={index}>
+                    <div className={project.actived ? Style.Painel : `${Style.Painel} ${Style.PainelDisabled}`} key={project.key}>
                         <div className={Style.Thumbnail}>
                             <div
                                 id={Style.ThumbnailToDo}
@@ -51,14 +56,15 @@ const Home = _ => {
                             </p>
                             <div className={Style.Actions}>
                                 {project.links.map((link, index) => (
-                                    <Link 
-                                        key={index}
-                                        to={link.url + project.param}
+                                    // <div key={index}></div>
+                                    <a 
                                         className={link.url === "" ? `${Style.Action} ${Style.ActionDisable}` : Style.Action}
+                                        key={index}
+                                        href={link.url + project.param}
                                         target="_blank"
                                         rel="noopener noreferrer">
                                             {link.name}
-                                    </Link>
+                                    </a>
                                 ))}
                             </div>
                         </div>
